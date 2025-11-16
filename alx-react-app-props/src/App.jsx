@@ -16,16 +16,17 @@ const [count, setCount] = useState(0);
 
   return (
      <div className="App">
+
      <UserContext.Provider value={userData}>
-     <ProfilePage />
+      <ProfilePage />
+       <UserProfile />
      </UserContext.Provider>
 
      <WelcomeMessage />
      <Header />
      <MainContent />
      <Footer />
-    <UserProfile name="Alice" age="25" bio="Loves hiking and photography" />
-    <UserProfile name="Bob" age="30" bio="Enjoys cooking and gaming" />
+   
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />

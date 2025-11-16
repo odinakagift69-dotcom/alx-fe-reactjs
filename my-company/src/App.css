@@ -5,6 +5,24 @@
   text-align: center;
 }
 
+/* src/components/Navbar.css */
+nav ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  padding: 1rem;
+  background-color: #282c34;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+nav ul li a:hover {
+  text-decoration: underline;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

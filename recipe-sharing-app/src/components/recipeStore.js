@@ -1,24 +1,39 @@
-// src/store/recipeStore.js
-import { create } from 'zustand';
-import { nanoid } from 'nanoid';
+import create from 'zustand';
 
-export const useRecipeStore = create((set) => ({
-  recipes: [],
+export const useRecipeStore = create((set, get) => ({
+  recipes: [],          // all recipes
+  searchTerm: '',       // search input
+  filteredRecipes: [],  // recipes after filtering
 
-  addRecipe: (title, description) =>
-    set((state) => ({
-      recipes: [...state.recipes, { id: nanoid(), title, description }],
+  // Add a recipe
+  addRecipe: (recipe) =>
+    set(state => ({ recipes: [...state.recipes, recipe] })),
+
+  // Delete a recipe
+  deleteRecipe: (id) =>
+    set(state => ({
+      recipes: state.recipes.filter(recipe => recipe.id !== id),
     })),
 
-  updateRecipe: (id, updatedRecipe) =>
-    set((state) => ({
-      recipes: state.recipes.map((recipe) =>
-        recipe.id === id ? { ...recipe, ...updatedRecipe } : recipe
+  // Update a recipe
+  updateRecipe: (updatedRecipe) =>
+    set(state => ({
+      recipes: state.recipes.map(recipe =>
+        recipe.id === updatedRecipe.id ? updatedRecipe : recipe
       ),
     })),
 
-  deleteRecipe: (id) =>
-    set((state) => ({
-      recipes: state.recipes.filter((recipe) => recipe.id !== id),
+  // Update search term
+  setSearchTerm: (term) => {
+    set({ searchTerm: term });
+    get().filterRecipes(); // automatically filter after updating term
+  },
+
+  // Filter recipes based on search term
+  filterRecipes: () =>
+    set(state => ({
+      filteredRecipes: state.recipes.filter(recipe =>
+        recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase())
+      ),
     })),
 }));

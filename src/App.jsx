@@ -1,48 +1,37 @@
-import WelcomeMessage from './components/WelcomeMessage';
-import { useState } from 'react'
-import UserProfile from './components/UserProfile';
-import Header from './components/Header';
-import MainContent from './components/MainContent';
-import Footer from './components/Footer';
-import Counter from './components/Counter';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css';
+import AddRecipeForm from './components/AddRecipeForm';
+import RecommendationsList from './components/RecommendationsList';
+import FavoritesList from './components/FavoritesList';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SearchBar from './components/SearchBar';
+import RecipeList from './components/RecipeList';
+import RecipeDetails from './components/RecipeDetails'; // you need this component
+import FavoritesList from './components/FavoritesList';
+import RecommendationsList from './components/RecommendationsList';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-     <div className="App">
-     <WelcomeMessage />
-     <Header />
-     <MainContent />
-    <UserProfile name="Eli" age={23} bio="Frontend developer from Nairobi."/>
-    {/* other components*/}
-     <Counter />
-    <Footer />
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div style={{ padding: '20px' }}>
+        <h1>Recipe Sharing App</h1>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <SearchBar />
+                <RecipeList />
+                <FavoritesList />
+                <RecommendationsList />
+              </>
+            }
+          />
+          <Route path="/recipe/:id" element={<RecipeDetails />} />
+          <Route path="/add-recipe" element={<AddRecipeForm />} />
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    </Router>
+  );
 }
 
 export default App;
+

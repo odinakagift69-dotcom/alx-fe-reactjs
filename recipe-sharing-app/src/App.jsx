@@ -5,8 +5,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
 import RecipeList from './components/RecipeList';
 import RecipeDetails from './components/RecipeDetails'; // you need this component
-import FavoritesList from './components/FavoritesList';
-import RecommendationsList from './components/RecommendationsList';
 
 function App() {
   return (
@@ -14,6 +12,7 @@ function App() {
       <div style={{ padding: '20px' }}>
         <h1>Recipe Sharing App</h1>
         <Routes>
+          {/* Home Page */}
           <Route
             path="/"
             element={
@@ -25,8 +24,12 @@ function App() {
               </>
             }
           />
-          <Route path="/recipe/:id" element={<RecipeDetails />} />
+          
+          {/* Add Recipe Page */}
           <Route path="/add-recipe" element={<AddRecipeForm />} />
+          
+          {/* Recipe Details Page */}
+          <Route path="/recipe/:id" element={<RecipeDetailsWrapper />} />
         </Routes>
       </div>
     </Router>
@@ -35,3 +38,10 @@ function App() {
 
 export default App;
 
+// Wrapper to pass recipeId to RecipeDetails
+import { useParams } from 'react-router-dom';
+
+const RecipeDetailsWrapper = () => {
+  const { id } = useParams(); // grabs the :id from URL
+  return <RecipeDetails recipeId={id} />;
+};

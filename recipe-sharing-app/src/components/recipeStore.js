@@ -1,33 +1,27 @@
+// src/components/recipeStore.js
 import create from 'zustand';
+import { nanoid } from 'nanoid';
 
-export const useRecipeStore = create((set, get) => ({
+export const useRecipeStore = create((set) => ({
   recipes: [],
-  favorites: [],
-  recommendations: [],
 
-  // Recipe actions
-  addRecipe: (recipe) => set(state => ({ recipes: [...state.recipes, recipe] })),
-  updateRecipe: (updatedRecipe) => set(state => ({
-    recipes: state.recipes.map(r => r.id === updatedRecipe.id ? updatedRecipe : r)
-  })),
-  deleteRecipe: (recipeId) => set(state => ({
-    recipes: state.recipes.filter(r => r.id !== recipeId)
-  })),
+  // Add a new recipe
+  addRecipe: (title, description) => 
+    set((state) => ({
+      recipes: [...state.recipes, { id: nanoid(), title, description }],
+    })),
 
-  // Favorites actions
-  addFavorite: (recipeId) => set(state => ({
-    favorites: [...state.favorites, recipeId]
-  })),
-  removeFavorite: (recipeId) => set(state => ({
-    favorites: state.favorites.filter(id => id !== recipeId)
-  })),
+  // Update an existing recipe
+  updateRecipe: (id, updatedData) => 
+    set((state) => ({
+      recipes: state.recipes.map((recipe) =>
+        recipe.id === id ? { ...recipe, ...updatedData } : recipe
+      ),
+    })),
 
-  // Recommendations
-  generateRecommendations: () => set(state => {
-    const recommended = state.recipes.filter(r =>
-      state.favorites.includes(r.id) && Math.random() > 0.5
-    );
-    return { recommendations: recommended };
-  }),
+  // Delete a recipe
+  deleteRecipe: (id) =>
+    set((state) => ({
+      recipes: state.recipes.filter((recipe) => recipe.id !== id),
+    })),
 }));
-

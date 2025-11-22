@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Search from "./components/SearchBar";
+import Search from "./components/Search";
 
 function App() {
   const [users, setUsers] = useState([]);

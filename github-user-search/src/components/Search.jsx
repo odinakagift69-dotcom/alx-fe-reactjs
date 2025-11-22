@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { fetchUserData } from "../services/githubService";
 
-function Search({ setUsers }) {
+function Search() {
   const [username, setUsername] = useState("");
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -11,21 +12,21 @@ function Search({ setUsers }) {
     if (!username) return;
     setLoading(true);
     setError("");
+    setUser(null);
+
     try {
       const data = await fetchUserData(username);
-      setUsers([data]);
-      setError(""); // clear any previous errors
+      setUser(data);
     } catch (err) {
       if (err.response && err.response.status === 404) {
-        setError("Looks like we can't find the user");
+        setError("Looks like we cant find the user");
       } else {
         setError("Something went wrong. Please try again.");
       }
-      setUsers([]);
     } finally {
       setLoading(false);
     }
-  }; // <-- THIS closes handleSubmit properly
+  };
 
   return (
     <div>
@@ -41,6 +42,16 @@ function Search({ setUsers }) {
 
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
+
+      {user && (
+        <div>
+          <img src={user.avatar_url} alt={user.login} width="100" />
+          <p>{user.login}</p>
+          <a href={user.html_url} target="_blank" rel="noreferrer">
+            View Profile
+          </a>
+        </div>
+      )}
     </div>
   );
 }

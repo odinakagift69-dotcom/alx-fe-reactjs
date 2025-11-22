@@ -1,36 +1,48 @@
 import React, { useState } from "react";
-import { fetchUsers } from "../services/githubApi";
+import { fetchUserData } from "../services/githubService";
 
-function SearchBar({ setUsers }) {
-  const [query, setQuery] = useState("");
+function Search({ setUsers }) {
+  const [username, setUsername] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSearch = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!query) return;
-
+    if (!username) return;
+    setLoading(true);
+    setError("");
     try {
-      const data = await fetchUsers(query);
-      setUsers(data.items);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-       setUsers([]);
+      const data = await fetchUserData(username);
+      setUsers([data]);
+      setError(""); // clear any previous errors
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        setError("Looks like we can't find the user");
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+      setUsers([]);
+    } finally {
+      setLoading(false);
     }
-  };
+  }; // <-- THIS closes handleSubmit properly
 
   return (
-    <form onSubmit={handleSearch}>
-      <input
-        type="text"
-        placeholder="Search GitHub users..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        style={{ padding: "0.5rem", width: "300px" }}
-      />
-      <button type="submit" style={{ marginLeft: "0.5rem", padding: "0.5rem" }}>
-        Search
-      </button>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Enter GitHub username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <button type="submit">Search</button>
+      </form>
+
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+    </div>
   );
 }
 
-export default SearchBar;
+export default Search;

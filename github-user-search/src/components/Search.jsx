@@ -9,8 +9,9 @@ function Search() {
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
+  // Rename this to fetchUserData
+  const fetchUserData = async (e) => {
+    e.preventDefault(); // prevent page reload
     const data = await searchUsers({ username, location, minRepos, page });
     setResults(data.items || []);
     setTotalCount(data.total_count || 0);
@@ -33,7 +34,7 @@ function Search() {
 
   return (
     <div className="max-w-xl mx-auto bg-white shadow-md p-6 rounded-lg">
-      <form onSubmit={handleSearch} className="space-y-4">
+      <form onSubmit={fetchUserData} className="space-y-4">
         <input
           type="text"
           placeholder="Username"

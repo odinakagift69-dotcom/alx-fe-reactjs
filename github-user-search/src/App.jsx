@@ -3,18 +3,17 @@ import Search from "./components/Search";
 
 function App() {
   return (
-    <>
-      <div className="min-h-screen bg-gray-50">
-        <h1 className="text-3xl font-bold text-center p-6">
-          GitHub User Search
-        </h1>
-        <Search />
-      </div>
+    <div className="min-h-screen bg-gray-100 p-6">
+      <h1 className="text-3xl font-bold text-center mb-6">
+        GitHub User Search (Advanced)
+      </h1>
+      <Search />
 
-      <div className="p-8 bg-blue-600 text-white text-3xl">
-        Tailwind 4 is working!
-      </div>
-    </>
+      <div className="p-6 bg-green-500 text-white text-xl">
+  Tailwind is working!
+    </div>
+    </div>
+    
   );
 }
 

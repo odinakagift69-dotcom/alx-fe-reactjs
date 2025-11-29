@@ -1,6 +1,6 @@
+import React, { useEffect } from "react";
 import useRecipeStore from "./recipeStore";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 
 const RecommendationsList = () => {
   const recommendations = useRecipeStore((state) => state.recommendations);
@@ -10,7 +10,7 @@ const RecommendationsList = () => {
 
   useEffect(() => {
     generateRecommendations();
-  }, [generateRecommendations]); // ✅ FIXED
+  }, [generateRecommendations]);
 
   return (
     <div>

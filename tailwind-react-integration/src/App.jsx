@@ -1,14 +1,14 @@
-import React from "react";
 import UserProfile from "./component/UserProfile";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <UserProfile />
     </div>
   );
 }
 
 export default App;
+
 
 

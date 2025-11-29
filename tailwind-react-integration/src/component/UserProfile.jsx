@@ -3,19 +3,22 @@ import React from "react";
 
 const UserProfile = () => {
   return (
-    <div className="p-6 bg-gray-100 rounded-lg shadow-md max-w-sm mx-auto mt-10">
+    <div className="max-w-sm mx-auto p-6 bg-white shadow-lg rounded-lg text-center">
       <img
         src="https://via.placeholder.com/150"
-        alt="User"
-        className="w-32 h-32 rounded-full mx-auto"
+        alt="User profile"
+        className="w-24 h-24 rounded-full mx-auto"
       />
-      <h2 className="text-2xl font-bold mt-4 text-center">John Doe</h2>
-      <p className="text-gray-600 text-center mt-2">Frontend Developer</p>
+
+      <h1 className="text-xl font-bold mt-4">Gift Odinakachi</h1>
+
+      <p className="text-gray-600 mt-2">Frontend Developer</p>
     </div>
   );
 };
 
 export default UserProfile;
+
 
 
 

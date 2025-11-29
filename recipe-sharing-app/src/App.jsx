@@ -7,7 +7,6 @@ function App() {
   return (
     <div>
       <h1>Recipe Sharing App</h1>
-
       <Routes>
         <Route
           path="/"
@@ -18,7 +17,6 @@ function App() {
             </div>
           }
         />
-
         <Route path="/recipe/:id" element={<RecipeDetails />} />
       </Routes>
     </div>
@@ -26,6 +24,7 @@ function App() {
 }
 
 export default App;
+
 
 
 

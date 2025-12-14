@@ -39,10 +39,7 @@ export default function TodoList() {
           <li
             key={index}
             onClick={() => toggleTodo(index)}
-            style={{
-              textDecoration: todo.completed ? "line-through" : "none",
-              cursor: "pointer"
-            }}
+            style={{ textDecoration: todo.completed ? "line-through" : "none" }}
           >
             {todo.text} <button onClick={() => deleteTodo(index)}>Delete</button>
           </li>

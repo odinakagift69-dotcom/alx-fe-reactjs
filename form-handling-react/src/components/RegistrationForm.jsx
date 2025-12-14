@@ -27,7 +27,7 @@ const RegistrationForm = () => {
     }
 
     setError("");
-    console.log("User Registered:", formData);
+    console.log("User Registered (Controlled):", formData);
   };
 
   return (
@@ -44,6 +44,8 @@ const RegistrationForm = () => {
         onChange={handleChange}
       />
 
+      <br />
+
       <input
         type="email"
         name="email"
@@ -52,6 +54,8 @@ const RegistrationForm = () => {
         onChange={handleChange}
       />
 
+      <br />
+
       <input
         type="password"
         name="password"
@@ -59,6 +63,8 @@ const RegistrationForm = () => {
         value={formData.password}
         onChange={handleChange}
       />
+
+      <br />
 
       <button type="submit">Register</button>
     </form>

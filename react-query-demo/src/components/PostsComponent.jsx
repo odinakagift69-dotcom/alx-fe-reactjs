@@ -3,35 +3,30 @@ import { useQuery } from "react-query";
 
 const fetchPosts = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-  if (!res.ok) {
-    throw new Error("Network response was not ok");
-  }
+  if (!res.ok) throw new Error("Network response was not ok");
   return res.json();
 };
 
-function PostsComponent() {
-  const { data, isLoading, isError, error, refetch } = useQuery(
+export default function PostsComponent() {
+  const { data, error, isLoading, isError, refetch } = useQuery(
     "posts",
     fetchPosts,
     {
-      cacheTime: 1000 * 60 * 5,           // Cache inactive queries for 5 minutes
-      staleTime: 1000 * 60,               // Data is fresh for 1 minute
-      refetchOnWindowFocus: false,        // Do not refetch on window focus
-      keepPreviousData: true,             // Keep previous data while fetching new data
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      cacheTime: 1000 * 60 * 10, // 10 minutes
+      refetchOnWindowFocus: false,
+      keepPreviousData: true,
     }
   );
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading posts...</p>;
   if (isError) return <p>Error: {error.message}</p>;
 
   return (
     <div>
-      <h2>Posts</h2>
-      <button onClick={() => refetch()} style={{ marginBottom: "10px" }}>
-        Refetch Posts
-      </button>
+      <button onClick={refetch}>Refetch Posts</button>
       <ul>
-        {data.map(post => (
+        {data.map((post) => (
           <li key={post.id}>
             <strong>{post.title}</strong>
             <p>{post.body}</p>
@@ -42,7 +37,6 @@ function PostsComponent() {
   );
 }
 
-export default PostsComponent;
 
 
 

@@ -4,7 +4,7 @@ import PostsComponent from "./components/PostsComponent.jsx";
 
 const queryClient = new QueryClient();
 
-function App() {
+export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <div style={{ padding: "20px" }}>
@@ -14,5 +14,3 @@ function App() {
     </QueryClientProvider>
   );
 }
-
-export default App;

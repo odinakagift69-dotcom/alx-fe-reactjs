@@ -22,4 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+<<<<<<< HEAD
 alx-react-app-props/
+=======
+>>>>>>> c7eefe8 (Setuo React Query with PostsComponent fetching JSONPLACEholder posts)
